@@ -1,10 +1,4 @@
-// scripts.js
-// Paste this as your full client script.
-// If you are using Firebase Hosting + Firestore, replace the firebaseConfig values below.
-// For email notifications to the host, set up a Firestore-triggered Cloud Function
-// or the Trigger Email extension. The browser script should only save RSVP data.
-
-import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -15,17 +9,6 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* =========================
-   Firebase config
-   =========================
-   Replace these with your Firebase project settings.
-*/
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCBoxz_Lgl7UXoMZZM2noBgR8NTu90LA0g",
   authDomain: "joe-birthday-dinner-2cf3f.firebaseapp.com",
@@ -35,8 +18,8 @@ const firebaseConfig = {
   appId: "1:1040931514557:web:0d9e67a9be1c2da66bafd4"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
