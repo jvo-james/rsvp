@@ -14,29 +14,35 @@
   <style>
     :root{
       --bg:#050505;
-      --text:#f7f2e8;
-      --muted:rgba(247,242,232,.74);
-      --gold:#f2d37b;
-      --gold2:#d6b15a;
-      --gold3:#a57d2d;
-      --line:rgba(242,211,123,.16);
+      --bg2:#0b0b0b;
       --panel:rgba(255,255,255,.045);
       --panel2:rgba(255,255,255,.075);
-      --shadow:0 22px 80px rgba(0,0,0,.58);
-      --r1:32px;
+      --line:rgba(242,211,123,.14);
+      --text:#f7f2e8;
+      --muted:rgba(247,242,232,.72);
+      --gold:#f2d37b;
+      --gold2:#d6b15a;
+      --gold3:#9f7b2b;
+      --shadow:0 22px 80px rgba(0,0,0,.56);
+      --r1:34px;
       --r2:24px;
       --r3:18px;
     }
 
     *{box-sizing:border-box}
-    html{height:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    html{
+      -webkit-text-size-adjust:100%;
+      scroll-behavior:smooth;
+      min-height:100%;
+    }
     body{
       margin:0;
+      min-height:100vh;
       min-height:100svh;
       overflow-x:hidden;
-  overflow-y:auto;
+      overflow-y:auto;
       background:
-        radial-gradient(circle at 18% 20%, rgba(242,211,123,.12), transparent 18%),
+        radial-gradient(circle at 18% 18%, rgba(242,211,123,.12), transparent 18%),
         radial-gradient(circle at 82% 18%, rgba(214,177,90,.09), transparent 20%),
         radial-gradient(circle at 50% 82%, rgba(242,211,123,.06), transparent 28%),
         linear-gradient(180deg, #040404 0%, #070707 55%, #050505 100%);
@@ -46,6 +52,7 @@
 
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
+    button{font:inherit}
 
     .bg{
       position:fixed;
@@ -58,7 +65,7 @@
     .grid{
       position:absolute;
       inset:-18%;
-      opacity:.18;
+      opacity:.14;
       background-image:
         linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
@@ -72,7 +79,7 @@
       filter:blur(20px);
       opacity:.95;
       background:
-        radial-gradient(circle at 50% 45%, rgba(242,211,123,.14), transparent 22%),
+        radial-gradient(circle at 50% 36%, rgba(242,211,123,.14), transparent 22%),
         radial-gradient(circle at 16% 78%, rgba(214,177,90,.09), transparent 24%),
         radial-gradient(circle at 84% 24%, rgba(242,211,123,.08), transparent 18%);
       animation: drift 12s ease-in-out infinite alternate;
@@ -102,22 +109,21 @@
     .orb.three{width:90px;height:90px;right:18%;top:12%;animation-duration:12s}
 
     .wrap{
-      width:min(1180px, calc(100% - 28px));
+      width:min(1180px, calc(100% - 20px));
       min-height:100svh;
       margin:0 auto;
+      padding:10px 0 16px;
       display:grid;
       place-items:center;
-      padding:14px 0;
     }
 
     .panel{
       width:100%;
-      min-height:100svh;
-  height:auto;
+      min-height:calc(100svh - 16px);
       display:grid;
       grid-template-columns:1.02fr .98fr;
-      gap:18px;
-      padding:18px;
+      gap:16px;
+      padding:16px;
       border-radius:34px;
       background:
         linear-gradient(180deg, rgba(255,255,255,.052), rgba(255,255,255,.026)),
@@ -151,8 +157,7 @@
       z-index:0;
     }
 
-    .left,
-    .right{
+    .left, .right{
       position:relative;
       z-index:1;
       min-width:0;
@@ -163,7 +168,7 @@
 
     .left{
       padding:clamp(12px, 3vw, 34px);
-      gap:16px;
+      gap:14px;
     }
 
     .eyebrow{
@@ -187,7 +192,7 @@
     h1{
       margin:0;
       font-family:"Cinzel",serif;
-      font-size:clamp(2.05rem, 4.9vw, 4.9rem);
+      font-size:clamp(2.1rem, 5vw, 5rem);
       line-height:.95;
       letter-spacing:.02em;
       text-wrap:balance;
@@ -199,8 +204,31 @@
       color:var(--muted);
       font-size:clamp(.97rem, 1.4vw, 1.06rem);
       line-height:1.7;
-      max-width:44ch;
+      max-width:46ch;
       text-wrap:pretty;
+    }
+
+    .name-banner{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      width:fit-content;
+      max-width:100%;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(242,211,123,.12);
+      color:rgba(247,242,232,.9);
+      font-size:.92rem;
+      line-height:1.4;
+      flex-wrap:wrap;
+    }
+
+    .name-banner strong{
+      color:var(--gold);
+      font-family:"Cinzel",serif;
+      font-weight:700;
+      letter-spacing:.03em;
     }
 
     .meta{
@@ -228,7 +256,7 @@
     .actions{
       display:flex;
       flex-wrap:wrap;
-      gap:12px;
+      gap:10px;
       margin-top:8px;
       width:min(100%, 560px);
     }
@@ -239,17 +267,17 @@
       align-items:center;
       justify-content:center;
       gap:10px;
-      min-height:50px;
-      padding:0 18px;
+      min-height:46px;
+      padding:0 14px;
       border-radius:999px;
       border:1px solid transparent;
       font-weight:700;
-      letter-spacing:.01em;
+      font-size:.92rem;
       text-align:center;
       white-space:normal;
       transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
       overflow:hidden;
-      flex:1 1 280px;
+      flex:1 1 240px;
     }
 
     .btn i{font-size:.95em}
@@ -270,8 +298,8 @@
       align-items:center;
       gap:8px;
       width:fit-content;
-      color:rgba(246,241,231,.6);
-      font-size:.88rem;
+      color:rgba(246,241,231,.62);
+      font-size:.86rem;
       border-bottom:1px solid rgba(242,211,123,.18);
       padding-bottom:3px;
       flex-wrap:wrap;
@@ -282,9 +310,9 @@
     .mini-note{
       margin-top:2px;
       color:rgba(246,241,231,.52);
-      font-size:.8rem;
+      font-size:.82rem;
       line-height:1.55;
-      max-width:38ch;
+      max-width:40ch;
     }
 
     .right{
@@ -342,7 +370,7 @@
 
     .invite-card{
       position:relative;
-      width:min(100%, 424px);
+      width:min(100%, 430px);
       aspect-ratio: .78 / 1;
       border-radius:30px;
       background:
@@ -356,6 +384,7 @@
       transform:translateZ(0);
       display:block;
       cursor:pointer;
+      touch-action:manipulation;
     }
 
     .invite-card::before{
@@ -442,7 +471,7 @@
 
     .card-name{
       font-family:"Cinzel",serif;
-      font-size:clamp(2rem, 4.2vw, 3.45rem);
+      font-size:clamp(2rem, 4.2vw, 3.5rem);
       line-height:1;
       margin:0;
       text-wrap:balance;
@@ -458,7 +487,7 @@
     }
 
     .card-box{
-      width:min(100%, 290px);
+      width:min(100%, 300px);
       margin:18px auto 0;
       padding:16px 16px 14px;
       border-radius:22px;
@@ -483,7 +512,7 @@
       position:relative;
       z-index:1;
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap:10px;
       padding:8px 0;
@@ -505,11 +534,13 @@
       letter-spacing:.14em;
       font-size:.64rem;
       flex-wrap:wrap;
+      flex:0 0 auto;
     }
 
     .card-box .value{
       text-align:right;
       text-wrap:balance;
+      max-width:100%;
     }
 
     .card-foot{
@@ -580,16 +611,20 @@
       100%{transform:translateX(120%) skewX(-12deg)}
     }
 
+    .small-print{
+      display:none;
+    }
+
     @media (max-width: 920px){
       .wrap{
-        width:min(1180px, calc(100% - 16px));
+        width:min(1180px, calc(100% - 14px));
         padding:8px 0;
       }
 
       .panel{
         grid-template-columns:1fr;
         grid-template-rows:auto 1fr;
-        height:calc(100svh - 12px);
+        min-height:calc(100svh - 12px);
         gap:10px;
         padding:12px;
       }
@@ -601,8 +636,7 @@
         gap:12px;
       }
 
-      .lead,
-      .mini-note{
+      .lead{
         max-width:46ch;
       }
 
@@ -655,7 +689,6 @@
     }
 
     @media (max-width: 560px){
-      body{overflow:hidden}
       .wrap{
         width:calc(100% - 10px);
       }
@@ -682,7 +715,7 @@
       }
 
       h1{
-        font-size:clamp(1.95rem, 11vw, 3rem);
+        font-size:clamp(1.95rem, 11vw, 3.1rem);
       }
 
       .lead{
@@ -694,6 +727,12 @@
         font-size:.86rem;
       }
 
+      .name-banner{
+        font-size:.86rem;
+        padding:9px 12px;
+        justify-content:center;
+      }
+
       .actions{
         width:100%;
         gap:10px;
@@ -702,17 +741,17 @@
       .btn{
         width:100%;
         flex:1 1 100%;
-        min-height:48px;
-        padding-inline:16px;
-        font-size:.95rem;
+        min-height:44px;
+        padding-inline:14px;
+        font-size:.9rem;
       }
 
       .mini{
-        font-size:.82rem;
+        font-size:.8rem;
       }
 
       .invite-card{
-        width:min(100%, 330px);
+        width:min(100%, 334px);
         border-radius:24px;
       }
 
@@ -726,7 +765,7 @@
       }
 
       .card-name{
-        font-size:clamp(1.8rem, 10.5vw, 2.55rem);
+        font-size:clamp(1.8rem, 10.5vw, 2.7rem);
       }
 
       .card-sub{
@@ -734,7 +773,7 @@
       }
 
       .card-box{
-        width:min(100%, 248px);
+        width:min(100%, 250px);
         padding:14px 12px 12px;
         border-radius:18px;
       }
@@ -748,14 +787,14 @@
       }
 
       .card-foot{
-        font-size:.74rem;
+        font-size:.72rem;
         letter-spacing:.12em;
       }
 
       .hint{
         width:calc(100% - 26px);
         bottom:6px;
-        font-size:.68rem;
+        font-size:.66rem;
       }
     }
 
@@ -812,8 +851,13 @@
 
         <h1>Your place is reserved.</h1>
 
-        <p class="lead">
-          Your place is reserved for Joe’s surprise birthday dinner.
+        <div class="name-banner" id="nameBanner" hidden>
+          <span><i class="fa-solid fa-wand-sparkles"></i></span>
+          <span>Welcome, <strong id="guestName">Guest</strong>.</span>
+        </div>
+
+        <p class="lead" id="leadText">
+          Your RSVP has been saved for Joe’s surprise birthday dinner.
         </p>
 
         <div class="meta" aria-label="Event summary">
@@ -837,8 +881,8 @@
         </div>
 
         <a class="mini" id="downloadInvite" href="#" download="Joe-Surprise-Invite.svg">
-          <i class="fa-regular fa-file-pdf"></i>
-          Download the invite card
+          <i class="fa-regular fa-image"></i>
+          Download the digital invite card
         </a>
 
         <p class="mini-note">
@@ -909,14 +953,14 @@
 
           <a class="invite-card" id="inviteCard" href="#" download="Joe-Surprise-Invite.svg" aria-label="Download the digital invite card">
             <div class="pdf-top">
-              <span class="pdf-pill"><i class="fa-regular fa-file-pdf"></i> digital invite card</span>
+              <span class="pdf-pill"><i class="fa-regular fa-file-image"></i> digital invite card</span>
               <span class="pdf-mark" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span>
             </div>
 
             <div class="invite-body">
               <div class="card-kicker">Surprise birthday dinner</div>
               <h2 class="card-name">Joe</h2>
-              <p class="card-sub">Saturday 30 May · 7:00 PM</p>
+              <p class="card-sub" id="cardGuestLine">For Guest</p>
 
               <div class="card-box" aria-label="Invite details preview">
                 <div class="row">
@@ -948,11 +992,28 @@
   </main>
 
   <script>
-    (function () {
-      const card = document.getElementById("inviteCard");
-      const downloadLink = document.getElementById("downloadInvite");
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const name = (params.get("name") || "Guest").trim() || "Guest";
 
-      const svg = `
+      const safeName = name.replace(/[<>&"']/g, "");
+      const guestName = document.getElementById("guestName");
+      const nameBanner = document.getElementById("nameBanner");
+      const leadText = document.getElementById("leadText");
+      const cardGuestLine = document.getElementById("cardGuestLine");
+      const inviteCard = document.getElementById("inviteCard");
+      const downloadInvite = document.getElementById("downloadInvite");
+
+      if (guestName) guestName.textContent = safeName;
+      if (nameBanner) nameBanner.hidden = false;
+      if (leadText) {
+        leadText.textContent = `${safeName}, your RSVP has been saved for Joe’s surprise birthday dinner.`;
+      }
+      if (cardGuestLine) {
+        cardGuestLine.textContent = `For ${safeName}`;
+      }
+
+      const buildInviteSvg = (guest) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -1021,11 +1082,11 @@
     <path d="M256 710 H824" stroke="rgba(242,211,123,.12)" stroke-width="1"/>
     <path d="M256 790 H824" stroke="rgba(242,211,123,.12)" stroke-width="1"/>
 
-    <text x="258" y="602" class="t3 caps" font-size="18">Venue</text>
-    <text x="260" y="664" class="t1" font-size="34" font-weight="600">Acqua Bistecca, DC</text>
+    <text x="258" y="602" class="t3 caps" font-size="18">Guest</text>
+    <text x="260" y="664" class="t1" font-size="42" font-weight="600">${guest}</text>
 
-    <text x="258" y="748" class="t3 caps" font-size="18">Address</text>
-    <text x="260" y="808" class="t1" font-size="30" font-weight="500">10 Ridge Square NW, Washington, DC 20016</text>
+    <text x="258" y="748" class="t3 caps" font-size="18">Venue</text>
+    <text x="260" y="808" class="t1" font-size="30" font-weight="500">Acqua Bistecca, DC</text>
   </g>
 
   <g>
@@ -1037,53 +1098,19 @@
   </g>
 
   <text x="540" y="1218" text-anchor="middle" class="t2 caps" font-size="21">Please keep this evening a surprise</text>
+</svg>`.trim();
 
-  <g opacity=".9">
-    <circle cx="150" cy="190" r="4" fill="#f2d37b"/>
-    <circle cx="932" cy="178" r="3.5" fill="#d6b15a"/>
-    <circle cx="890" cy="1060" r="4" fill="#f2d37b"/>
-    <circle cx="214" cy="1076" r="3.5" fill="#d6b15a"/>
-  </g>
-</svg>`;
+      const svgBlob = new Blob([buildInviteSvg(safeName)], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      inviteCard.href = url;
+      downloadInvite.href = url;
 
-      const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-
-      card.href = url;
-      downloadLink.href = url;
-
-      card.addEventListener("click", () => {
-        card.style.transform = "scale(0.985)";
-        setTimeout(() => (card.style.transform = ""), 160);
+      inviteCard.addEventListener("click", () => {
+        inviteCard.style.transform = "scale(0.985)";
+        setTimeout(() => (inviteCard.style.transform = ""), 140);
       });
 
-      const sparkCount = 12;
-      const bg = document.querySelector(".bg");
-
-      for (let i = 0; i < sparkCount; i++) {
-        const s = document.createElement("span");
-        const size = 2 + Math.random() * 4;
-        s.style.position = "absolute";
-        s.style.width = size + "px";
-        s.style.height = size + "px";
-        s.style.borderRadius = "999px";
-        s.style.left = Math.random() * 100 + "%";
-        s.style.top = Math.random() * 100 + "%";
-        s.style.background = "rgba(242,211,123," + (0.22 + Math.random() * 0.55) + ")";
-        s.style.boxShadow = "0 0 16px rgba(242,211,123,.22)";
-        s.style.pointerEvents = "none";
-        s.style.animation = `sparkFloat ${8 + Math.random() * 10}s ease-in-out ${Math.random() * 5}s infinite alternate`;
-        bg.appendChild(s);
-      }
-
-      const style = document.createElement("style");
-      style.textContent = `
-        @keyframes sparkFloat {
-          0% { transform: translate3d(0,0,0) scale(1); opacity: .25; }
-          100% { transform: translate3d(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px, 0) scale(1.35); opacity: .95; }
-        }
-      `;
-      document.head.appendChild(style);
+      window.addEventListener("beforeunload", () => URL.revokeObjectURL(url));
     })();
   </script>
 </body>
