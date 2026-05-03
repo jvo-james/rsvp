@@ -192,6 +192,100 @@
       </div>
     </section>
 
+    <section class="countdown section" id="countdown" aria-label="Countdown to the dinner">
+  <div class="section__heading reveal">
+    <p class="section__eyebrow">
+      <i class="fa-solid fa-hourglass-half"></i> The countdown
+    </p>
+    <h2 class="section__title">The evening is drawing near</h2>
+  </div>
+
+  <div class="countdown__shell reveal">
+    <svg class="countdown__ornament countdown__ornament--left" viewBox="0 0 220 220" aria-hidden="true">
+      <defs>
+        <radialGradient id="countGlowLeft" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f2d37b" stop-opacity=".22" />
+          <stop offset="70%" stop-color="#f2d37b" stop-opacity=".06" />
+          <stop offset="100%" stop-color="#f2d37b" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="110" cy="110" r="84" fill="none" stroke="url(#countGlowLeft)" stroke-width="1.5" stroke-dasharray="10 12">
+        <animateTransform attributeName="transform" type="rotate" values="0 110 110;360 110 110" dur="26s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="110" cy="110" r="58" fill="none" stroke="rgba(242,211,123,.24)" stroke-width="2">
+        <animateTransform attributeName="transform" type="rotate" values="360 110 110;0 110 110" dur="18s" repeatCount="indefinite" />
+      </circle>
+      <path d="M110 32 L120 74 L160 86 L120 98 L110 140 L100 98 L60 86 L100 74 Z" fill="none" stroke="rgba(242,211,123,.5)" stroke-width="2">
+        <animateTransform attributeName="transform" type="rotate" values="0 110 110;360 110 110" dur="14s" repeatCount="indefinite" />
+      </path>
+    </svg>
+
+    <svg class="countdown__ornament countdown__ornament--right" viewBox="0 0 220 220" aria-hidden="true">
+      <circle cx="110" cy="110" r="84" fill="none" stroke="rgba(214,177,90,.16)" stroke-width="1.5" stroke-dasharray="8 11">
+        <animateTransform attributeName="transform" type="rotate" values="360 110 110;0 110 110" dur="24s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="110" cy="110" r="58" fill="none" stroke="rgba(242,211,123,.2)" stroke-width="2">
+        <animateTransform attributeName="transform" type="rotate" values="0 110 110;360 110 110" dur="16s" repeatCount="indefinite" />
+      </circle>
+      <path d="M110 24 L126 84 L186 110 L126 136 L110 196 L94 136 L34 110 L94 84 Z" fill="none" stroke="rgba(242,211,123,.42)" stroke-width="2">
+        <animateTransform attributeName="transform" type="rotate" values="360 110 110;0 110 110" dur="20s" repeatCount="indefinite" />
+      </path>
+    </svg>
+
+    <div class="countdown__card">
+      <div class="countdown__halo" aria-hidden="true"></div>
+
+      <div class="countdown__top">
+        <div class="countdown__titlebox">
+          <p class="countdown__kicker">
+            <i class="fa-solid fa-crown"></i>
+            Waiting for the night
+          </p>
+          <h3 class="countdown__title">Joe’s birthday dinner begins in</h3>
+        </div>
+
+        <div class="countdown__seal" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(242,211,123,.22)" stroke-width="1.6" stroke-dasharray="5 7">
+              <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="18s" repeatCount="indefinite" />
+            </circle>
+            <path d="M50 14 L56 36 L78 42 L56 48 L50 70 L44 48 L22 42 L44 36 Z" fill="none" stroke="rgba(242,211,123,.56)" stroke-width="1.8">
+              <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="12s" repeatCount="indefinite" />
+            </path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="countdown__grid" aria-live="polite">
+        <div class="count-tile">
+          <span class="count-tile__value" id="days">00</span>
+          <span class="count-tile__label">Days</span>
+        </div>
+        <div class="count-tile">
+          <span class="count-tile__value" id="hours">00</span>
+          <span class="count-tile__label">Hours</span>
+        </div>
+        <div class="count-tile">
+          <span class="count-tile__value" id="minutes">00</span>
+          <span class="count-tile__label">Minutes</span>
+        </div>
+        <div class="count-tile">
+          <span class="count-tile__value" id="seconds">00</span>
+          <span class="count-tile__label">Seconds</span>
+        </div>
+      </div>
+
+      <div class="countdown__bar">
+        <span class="countdown__bar-fill" id="countdownBar"></span>
+      </div>
+
+      <p class="countdown__note" id="countdownNote">
+        A private evening is taking shape.
+      </p>
+    </div>
+  </div>
+</section>
+    
     <!-- Visual strip with placeholder images -->
  <section class="gallery section" id="gallery">
   <div class="section__heading reveal">
