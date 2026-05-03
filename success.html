@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <title>RSVP Confirmed</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#050505;
+      --text:#f7f2e8;
+      --muted:rgba(247,242,232,.74);
+      --gold:#f2d37b;
+      --gold2:#d6b15a;
+      --gold3:#a57d2d;
+      --line:rgba(242,211,123,.16);
+      --panel:rgba(255,255,255,.045);
+      --panel2:rgba(255,255,255,.075);
+      --shadow:0 22px 80px rgba(0,0,0,.58);
+      --r1:32px;
+      --r2:24px;
+      --r3:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{height:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100svh;
+      overflow-x:hidden;
+  overflow-y:auto;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(242,211,123,.12), transparent 18%),
+        radial-gradient(circle at 82% 18%, rgba(214,177,90,.09), transparent 20%),
+        radial-gradient(circle at 50% 82%, rgba(242,211,123,.06), transparent 28%),
+        linear-gradient(180deg, #040404 0%, #070707 55%, #050505 100%);
+      color:var(--text);
+      font-family:"Inter",sans-serif;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .bg{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      overflow:hidden;
+    }
+
+    .grid{
+      position:absolute;
+      inset:-18%;
+      opacity:.18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:64px 64px;
+      mask-image:radial-gradient(circle at center, black 28%, transparent 82%);
+    }
+
+    .glow{
+      position:absolute;
+      inset:0;
+      filter:blur(20px);
+      opacity:.95;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(242,211,123,.14), transparent 22%),
+        radial-gradient(circle at 16% 78%, rgba(214,177,90,.09), transparent 24%),
+        radial-gradient(circle at 84% 24%, rgba(242,211,123,.08), transparent 18%);
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+
+    .noise{
+      position:absolute;
+      inset:0;
+      opacity:.07;
+      background-image:
+        linear-gradient(0deg, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:4px 4px;
+      mix-blend-mode:screen;
+    }
+
+    .orb{
+      position:absolute;
+      border-radius:999px;
+      border:1px solid rgba(242,211,123,.16);
+      box-shadow:0 0 50px rgba(242,211,123,.08), inset 0 0 30px rgba(242,211,123,.06);
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .orb.one{width:190px;height:190px;left:-58px;top:-52px;animation-duration:14s}
+    .orb.two{width:130px;height:130px;right:2%;bottom:8%;animation-duration:16s}
+    .orb.three{width:90px;height:90px;right:18%;top:12%;animation-duration:12s}
+
+    .wrap{
+      width:min(1180px, calc(100% - 28px));
+      min-height:100svh;
+      margin:0 auto;
+      display:grid;
+      place-items:center;
+      padding:14px 0;
+    }
+
+    .panel{
+      width:100%;
+      min-height:100svh;
+  height:auto;
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:18px;
+      padding:18px;
+      border-radius:34px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.052), rgba(255,255,255,.026)),
+        rgba(10,10,10,.74);
+      border:1px solid rgba(242,211,123,.12);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:12px;
+      border-radius:26px;
+      border:1px solid rgba(242,211,123,.08);
+      pointer-events:none;
+    }
+
+    .panel::after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:linear-gradient(120deg, transparent 35%, rgba(255,255,255,.06) 50%, transparent 65%);
+      transform:translateX(-120%);
+      animation:sheen 8.5s ease-in-out infinite;
+      pointer-events:none;
+      opacity:.5;
+      z-index:0;
+    }
+
+    .left,
+    .right{
+      position:relative;
+      z-index:1;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .left{
+      padding:clamp(12px, 3vw, 34px);
+      gap:16px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width:fit-content;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(242,211,123,.14);
+      color:rgba(242,211,123,.92);
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      font-size:.7rem;
+      flex-wrap:wrap;
+    }
+
+    .eyebrow i{font-size:.92rem}
+
+    h1{
+      margin:0;
+      font-family:"Cinzel",serif;
+      font-size:clamp(2.05rem, 4.9vw, 4.9rem);
+      line-height:.95;
+      letter-spacing:.02em;
+      text-wrap:balance;
+      text-shadow:0 0 22px rgba(242,211,123,.08);
+    }
+
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(.97rem, 1.4vw, 1.06rem);
+      line-height:1.7;
+      max-width:44ch;
+      text-wrap:pretty;
+    }
+
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 12px;
+      align-items:center;
+      color:rgba(246,241,231,.76);
+      font-size:.94rem;
+    }
+
+    .meta span{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .meta .dot{
+      width:5px;height:5px;border-radius:999px;
+      background:rgba(242,211,123,.8);
+      box-shadow:0 0 14px rgba(242,211,123,.35);
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:8px;
+      width:min(100%, 560px);
+    }
+
+    .btn{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:50px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:700;
+      letter-spacing:.01em;
+      text-align:center;
+      white-space:normal;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+      overflow:hidden;
+      flex:1 1 280px;
+    }
+
+    .btn i{font-size:.95em}
+
+    .btn.primary{
+      color:#120d02;
+      background:linear-gradient(135deg, #fff3c7 0%, #d9b458 42%, #9f7b2b 100%);
+      box-shadow:0 18px 38px rgba(242,211,123,.16), inset 0 1px 0 rgba(255,255,255,.45);
+    }
+
+    .btn.primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 24px 52px rgba(242,211,123,.22), inset 0 1px 0 rgba(255,255,255,.55);
+    }
+
+    .mini{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:fit-content;
+      color:rgba(246,241,231,.6);
+      font-size:.88rem;
+      border-bottom:1px solid rgba(242,211,123,.18);
+      padding-bottom:3px;
+      flex-wrap:wrap;
+    }
+
+    .mini i{color:rgba(242,211,123,.9)}
+
+    .mini-note{
+      margin-top:2px;
+      color:rgba(246,241,231,.52);
+      font-size:.8rem;
+      line-height:1.55;
+      max-width:38ch;
+    }
+
+    .right{
+      padding:clamp(8px, 1.8vw, 22px);
+    }
+
+    .invite-wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      min-height:0;
+    }
+
+    .seal-ring{
+      position:absolute;
+      inset:10% 8%;
+      pointer-events:none;
+      opacity:.95;
+      filter:drop-shadow(0 0 16px rgba(242,211,123,.08));
+    }
+
+    .seal-ring svg{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .svg-accent{
+      position:absolute;
+      pointer-events:none;
+      opacity:.95;
+      filter:drop-shadow(0 0 16px rgba(242,211,123,.1));
+    }
+
+    .svg-accent.one{
+      width:110px;height:110px;
+      top:18px;left:20px;
+      animation:float 12s ease-in-out infinite;
+    }
+
+    .svg-accent.two{
+      width:128px;height:128px;
+      bottom:18px;right:14px;
+      animation:float 14s ease-in-out infinite reverse;
+    }
+
+    .svg-accent.three{
+      width:72px;height:72px;
+      top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      opacity:.55;
+      animation:spin 18s linear infinite;
+    }
+
+    .invite-card{
+      position:relative;
+      width:min(100%, 424px);
+      aspect-ratio: .78 / 1;
+      border-radius:30px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.02)),
+        rgba(12,12,12,.9);
+      border:1px solid rgba(242,211,123,.16);
+      box-shadow:
+        0 26px 70px rgba(0,0,0,.5),
+        inset 0 0 0 1px rgba(255,255,255,.04);
+      overflow:hidden;
+      transform:translateZ(0);
+      display:block;
+      cursor:pointer;
+    }
+
+    .invite-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, transparent 36%, rgba(255,255,255,.2) 48%, transparent 60%);
+      transform:translateX(-125%);
+      animation:slide 7s ease-in-out infinite;
+      pointer-events:none;
+      opacity:.8;
+    }
+
+    .invite-card::after{
+      content:"";
+      position:absolute;
+      inset:14px;
+      border-radius:22px;
+      border:1px solid rgba(242,211,123,.12);
+      pointer-events:none;
+    }
+
+    .pdf-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px 18px 12px;
+      position:relative;
+      z-index:1;
+    }
+
+    .pdf-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(242,211,123,.14);
+      color:rgba(242,211,123,.92);
+      font-size:.72rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      flex-wrap:wrap;
+    }
+
+    .pdf-pill i{font-size:.9rem}
+
+    .pdf-mark{
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, #fff3c7, #d9b458 55%, #9f7b2b);
+      color:#130d02;
+      box-shadow:0 14px 30px rgba(242,211,123,.15);
+      flex:0 0 auto;
+    }
+
+    .pdf-mark i{font-size:1rem}
+
+    .invite-body{
+      height:calc(100% - 76px);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:10px 20px 18px;
+      text-align:center;
+      position:relative;
+      z-index:1;
+    }
+
+    .card-kicker{
+      font-size:.76rem;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:rgba(246,241,231,.6);
+      margin-bottom:10px;
+      text-wrap:balance;
+    }
+
+    .card-name{
+      font-family:"Cinzel",serif;
+      font-size:clamp(2rem, 4.2vw, 3.45rem);
+      line-height:1;
+      margin:0;
+      text-wrap:balance;
+    }
+
+    .card-sub{
+      margin:12px 0 0;
+      color:rgba(242,211,123,.9);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-size:clamp(.76rem, 1.05vw, .9rem);
+      text-wrap:balance;
+    }
+
+    .card-box{
+      width:min(100%, 290px);
+      margin:18px auto 0;
+      padding:16px 16px 14px;
+      border-radius:22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+      border:1px solid rgba(242,211,123,.14);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card-box::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(242,211,123,.08), transparent 22%),
+        radial-gradient(circle at 80% 20%, rgba(214,177,90,.08), transparent 20%);
+      pointer-events:none;
+    }
+
+    .card-box .row{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 0;
+      color:rgba(246,241,231,.9);
+      font-size:.92rem;
+      flex-wrap:wrap;
+    }
+
+    .card-box .row + .row{
+      border-top:1px solid rgba(242,211,123,.1);
+    }
+
+    .card-box .label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:rgba(242,211,123,.84);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.64rem;
+      flex-wrap:wrap;
+    }
+
+    .card-box .value{
+      text-align:right;
+      text-wrap:balance;
+    }
+
+    .card-foot{
+      margin-top:auto;
+      padding-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color:rgba(246,241,231,.58);
+      font-size:.82rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      flex-wrap:wrap;
+    }
+
+    .card-foot .spark{
+      width:8px;height:8px;border-radius:999px;
+      background:rgba(242,211,123,.92);
+      box-shadow:0 0 16px rgba(242,211,123,.35);
+    }
+
+    .hint{
+      position:absolute;
+      left:50%;
+      bottom:10px;
+      transform:translateX(-50%);
+      color:rgba(246,241,231,.48);
+      font-size:.75rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      pointer-events:none;
+      z-index:2;
+      text-align:center;
+      white-space:normal;
+    }
+
+    .hint i{color:rgba(242,211,123,.85)}
+
+    @keyframes drift{
+      0%{transform:translate3d(0,0,0) scale(1)}
+      100%{transform:translate3d(12px,-8px,0) scale(1.03)}
+    }
+
+    @keyframes float{
+      0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
+      50%{transform:translate3d(0,-10px,0) rotate(1deg)}
+    }
+
+    @keyframes spin{
+      from{transform:translate(-50%,-50%) rotate(0deg)}
+      to{transform:translate(-50%,-50%) rotate(360deg)}
+    }
+
+    @keyframes slide{
+      0%{transform:translateX(-125%)}
+      38%{transform:translateX(125%)}
+      100%{transform:translateX(125%)}
+    }
+
+    @keyframes sheen{
+      0%{transform:translateX(-120%) skewX(-12deg)}
+      45%{transform:translateX(120%) skewX(-12deg)}
+      100%{transform:translateX(120%) skewX(-12deg)}
+    }
+
+    @media (max-width: 920px){
+      .wrap{
+        width:min(1180px, calc(100% - 16px));
+        padding:8px 0;
+      }
+
+      .panel{
+        grid-template-columns:1fr;
+        grid-template-rows:auto 1fr;
+        height:calc(100svh - 12px);
+        gap:10px;
+        padding:12px;
+      }
+
+      .left{
+        padding:10px 8px 0;
+        text-align:center;
+        align-items:center;
+        gap:12px;
+      }
+
+      .lead,
+      .mini-note{
+        max-width:46ch;
+      }
+
+      .meta{
+        justify-content:center;
+      }
+
+      .actions{
+        width:min(100%, 560px);
+        justify-content:center;
+      }
+
+      .btn{
+        flex:1 1 220px;
+      }
+
+      .right{
+        padding:0 4px 8px;
+      }
+
+      .invite-wrap{
+        min-height:0;
+      }
+
+      .invite-card{
+        width:min(100%, 390px);
+      }
+
+      .seal-ring{
+        inset:8% 14%;
+      }
+
+      .svg-accent.one{
+        width:86px;height:86px;
+        top:6px;left:6px;
+      }
+
+      .svg-accent.two{
+        width:90px;height:90px;
+        bottom:8px;right:8px;
+      }
+
+      .svg-accent.three{
+        width:56px;height:56px;
+      }
+
+      .hint{
+        bottom:8px;
+      }
+    }
+
+    @media (max-width: 560px){
+      body{overflow:hidden}
+      .wrap{
+        width:calc(100% - 10px);
+      }
+
+      .panel{
+        border-radius:26px;
+        padding:10px;
+      }
+
+      .panel::before{
+        inset:8px;
+        border-radius:20px;
+      }
+
+      .left{
+        padding:8px 4px 0;
+        gap:11px;
+      }
+
+      .eyebrow{
+        font-size:.64rem;
+        letter-spacing:.16em;
+        padding:8px 12px;
+      }
+
+      h1{
+        font-size:clamp(1.95rem, 11vw, 3rem);
+      }
+
+      .lead{
+        font-size:.92rem;
+        line-height:1.62;
+      }
+
+      .meta{
+        font-size:.86rem;
+      }
+
+      .actions{
+        width:100%;
+        gap:10px;
+      }
+
+      .btn{
+        width:100%;
+        flex:1 1 100%;
+        min-height:48px;
+        padding-inline:16px;
+        font-size:.95rem;
+      }
+
+      .mini{
+        font-size:.82rem;
+      }
+
+      .invite-card{
+        width:min(100%, 330px);
+        border-radius:24px;
+      }
+
+      .invite-body{
+        padding:8px 16px 16px;
+      }
+
+      .card-kicker{
+        font-size:.69rem;
+        letter-spacing:.18em;
+      }
+
+      .card-name{
+        font-size:clamp(1.8rem, 10.5vw, 2.55rem);
+      }
+
+      .card-sub{
+        font-size:.72rem;
+      }
+
+      .card-box{
+        width:min(100%, 248px);
+        padding:14px 12px 12px;
+        border-radius:18px;
+      }
+
+      .card-box .row{
+        font-size:.84rem;
+      }
+
+      .card-box .label{
+        font-size:.58rem;
+      }
+
+      .card-foot{
+        font-size:.74rem;
+        letter-spacing:.12em;
+      }
+
+      .hint{
+        width:calc(100% - 26px);
+        bottom:6px;
+        font-size:.68rem;
+      }
+    }
+
+    @media (max-width: 380px){
+      .wrap{
+        width:calc(100% - 8px);
+      }
+
+      .panel{
+        padding:8px;
+      }
+
+      .lead{
+        font-size:.88rem;
+      }
+
+      .mini-note{
+        font-size:.76rem;
+      }
+
+      .invite-card{
+        width:min(100%, 304px);
+      }
+
+      .card-box{
+        width:min(100%, 226px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{
+        animation-duration:.001ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="grid"></div>
+    <div class="glow"></div>
+    <div class="noise"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+  <main class="wrap">
+    <section class="panel" aria-label="RSVP success screen">
+      <div class="left">
+        <p class="eyebrow"><i class="fa-solid fa-circle-check"></i> RSVP received</p>
+
+        <h1>Your place is reserved.</h1>
+
+        <p class="lead">
+          Your place is reserved for Joe’s surprise birthday dinner.
+        </p>
+
+        <div class="meta" aria-label="Event summary">
+          <span><i class="fa-regular fa-calendar"></i> Saturday, 30 May</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span><i class="fa-regular fa-clock"></i> 7:00 PM</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span><i class="fa-solid fa-location-dot"></i> Acqua Bistecca, DC</span>
+        </div>
+
+        <div class="actions">
+          <a
+            class="btn primary"
+            href="https://www.google.com/calendar/render?action=TEMPLATE&text=Surprise%20Birthday%20Dinner%20for%20Joe&dates=20260530T190000/20260530T220000&details=Please%20keep%20this%20event%20a%20surprise%20for%20Joe.&location=Acqua%20Bistecca%2C%2010%20Ridge%20Square%20NW%2C%20Washington%2C%20DC%2020016"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-brands fa-google"></i>
+            Add to Google Calendar
+          </a>
+        </div>
+
+        <a class="mini" id="downloadInvite" href="#" download="Joe-Surprise-Invite.svg">
+          <i class="fa-regular fa-file-pdf"></i>
+          Download the invite card
+        </a>
+
+        <p class="mini-note">
+          Keep this evening a surprise for Joe.
+        </p>
+      </div>
+
+      <div class="right">
+        <div class="invite-wrap">
+          <div class="seal-ring" aria-hidden="true">
+            <svg viewBox="0 0 420 420" role="presentation">
+              <defs>
+                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff3c7"/>
+                  <stop offset="50%" stop-color="#d9b458"/>
+                  <stop offset="100%" stop-color="#9f7b2b"/>
+                </linearGradient>
+              </defs>
+
+              <circle cx="210" cy="210" r="160" fill="none" stroke="rgba(242,211,123,.13)" stroke-width="2" stroke-dasharray="10 14">
+                <animateTransform attributeName="transform" type="rotate" values="0 210 210;360 210 210" dur="32s" repeatCount="indefinite" />
+              </circle>
+
+              <circle cx="210" cy="210" r="120" fill="none" stroke="rgba(214,177,90,.18)" stroke-width="1.5" stroke-dasharray="5 8">
+                <animateTransform attributeName="transform" type="rotate" values="0 210 210;-360 210 210" dur="24s" repeatCount="indefinite" />
+              </circle>
+
+              <path d="M210 95 L226 152 L283 168 L226 184 L210 241 L194 184 L137 168 L194 152 Z"
+                    fill="none" stroke="url(#g1)" stroke-width="2.2">
+                <animateTransform attributeName="transform" type="rotate" values="0 210 210;360 210 210" dur="18s" repeatCount="indefinite" />
+              </path>
+
+              <path d="M110 245c34-62 92-96 100-96s66 34 100 96" fill="none" stroke="rgba(242,211,123,.65)" stroke-width="2" stroke-linecap="round">
+                <animate attributeName="d" dur="6s" repeatCount="indefinite"
+                  values="
+                    M110 245c34-62 92-96 100-96s66 34 100 96;
+                    M110 237c38-56 92-88 100-88s62 32 100 88;
+                    M110 245c34-62 92-96 100-96s66 34 100 96
+                  " />
+              </path>
+
+              <circle cx="145" cy="150" r="4.5" fill="#f2d37b">
+                <animate attributeName="cy" values="150;130;150" dur="5s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="275" cy="126" r="3.5" fill="#d6b15a">
+                <animate attributeName="cx" values="275;287;275" dur="7s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+          </div>
+
+          <svg class="svg-accent one" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M50 8 L60 40 L92 50 L60 60 L50 92 L40 60 L8 50 L40 40 Z" fill="none" stroke="rgba(242,211,123,.32)" stroke-width="1.8">
+              <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="16s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+
+          <svg class="svg-accent two" viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="28" fill="none" stroke="rgba(214,177,90,.34)" stroke-width="1.6" stroke-dasharray="6 8">
+              <animateTransform attributeName="transform" type="rotate" values="0 50 50;-360 50 50" dur="18s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+
+          <svg class="svg-accent three" viewBox="0 0 80 80" aria-hidden="true">
+            <path d="M40 10 L46 30 L66 40 L46 50 L40 70 L34 50 L14 40 L34 30 Z" fill="none" stroke="rgba(242,211,123,.22)" stroke-width="1.6">
+              <animateTransform attributeName="transform" type="rotate" values="0 40 40;360 40 40" dur="10s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+
+          <a class="invite-card" id="inviteCard" href="#" download="Joe-Surprise-Invite.svg" aria-label="Download the digital invite card">
+            <div class="pdf-top">
+              <span class="pdf-pill"><i class="fa-regular fa-file-pdf"></i> digital invite card</span>
+              <span class="pdf-mark" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span>
+            </div>
+
+            <div class="invite-body">
+              <div class="card-kicker">Surprise birthday dinner</div>
+              <h2 class="card-name">Joe</h2>
+              <p class="card-sub">Saturday 30 May · 7:00 PM</p>
+
+              <div class="card-box" aria-label="Invite details preview">
+                <div class="row">
+                  <span class="label"><i class="fa-solid fa-location-dot"></i> Venue</span>
+                  <span class="value">Acqua Bistecca, DC</span>
+                </div>
+                <div class="row">
+                  <span class="label"><i class="fa-solid fa-road"></i> Address</span>
+                  <span class="value">10 Ridge Square NW<br>Washington, DC 20016</span>
+                </div>
+                <div class="row">
+                  <span class="label"><i class="fa-regular fa-star"></i> Note</span>
+                  <span class="value">Please keep this evening a surprise</span>
+                </div>
+              </div>
+
+              <div class="card-foot">
+                <span>tap to save</span>
+                <span class="spark" aria-hidden="true"></span>
+                <span>invite card</span>
+              </div>
+            </div>
+          </a>
+
+          <div class="hint"><i class="fa-solid fa-hand-pointer"></i> Tap the card to download</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const card = document.getElementById("inviteCard");
+      const downloadLink = document.getElementById("downloadInvite");
+
+      const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#050505"/>
+      <stop offset="45%" stop-color="#0c0c0c"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff3c7"/>
+      <stop offset="45%" stop-color="#d9b458"/>
+      <stop offset="100%" stop-color="#9f7b2b"/>
+    </linearGradient>
+
+    <radialGradient id="glow" cx="50%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#f2d37b" stop-opacity=".17"/>
+      <stop offset="55%" stop-color="#d6b15a" stop-opacity=".05"/>
+      <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+
+    <style>
+      .t1{font-family: 'Cinzel', serif; fill: #f7f2e8}
+      .t2{font-family: 'Inter', sans-serif; fill: rgba(247,242,232,.76)}
+      .t3{font-family: 'Inter', sans-serif; fill: #f2d37b; letter-spacing: 3px}
+      .caps{letter-spacing: 6px; text-transform: uppercase}
+    </style>
+  </defs>
+
+  <rect width="1080" height="1350" rx="56" fill="url(#bg)"/>
+  <rect width="1080" height="1350" rx="56" fill="url(#glow)"/>
+
+  <g opacity=".24">
+    <path d="M0 106 L1080 106" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+    <path d="M0 1244 L1080 1244" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+    <path d="M100 0 L100 1350" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+    <path d="M980 0 L980 1350" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+  </g>
+
+  <g opacity=".92">
+    <circle cx="145" cy="150" r="95" fill="none" stroke="rgba(242,211,123,.16)" stroke-width="2" stroke-dasharray="10 14"/>
+    <circle cx="935" cy="1220" r="110" fill="none" stroke="rgba(242,211,123,.10)" stroke-width="2" stroke-dasharray="10 14"/>
+    <path d="M540 130 L560 198 L628 220 L560 242 L540 310 L520 242 L452 220 L520 198 Z" fill="none" stroke="url(#gold)" stroke-width="3"/>
+    <path d="M147 1045 L166 1110 L231 1128 L166 1146 L147 1212 L128 1146 L63 1128 L128 1110 Z" fill="none" stroke="rgba(214,177,90,.35)" stroke-width="2"/>
+  </g>
+
+  <g filter="url(#blur)" opacity=".65">
+    <circle cx="540" cy="390" r="210" fill="rgba(242,211,123,.12)"/>
+  </g>
+
+  <circle cx="540" cy="390" r="166" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-dasharray="10 14"/>
+  <circle cx="540" cy="390" r="126" fill="none" stroke="rgba(242,211,123,.18)" stroke-width="1.8" stroke-dasharray="6 10"/>
+
+  <text x="540" y="170" text-anchor="middle" class="t3 caps" font-size="26">Digital Invite Card</text>
+  <text x="540" y="285" text-anchor="middle" class="t1" font-size="94" font-weight="600">Joe</text>
+  <text x="540" y="345" text-anchor="middle" class="t3 caps" font-size="22">Surprise birthday dinner</text>
+
+  <text x="540" y="470" text-anchor="middle" class="t1" font-size="38" font-weight="500">Saturday 30 May · 7:00 PM</text>
+
+  <g>
+    <rect x="208" y="548" width="664" height="300" rx="34" fill="rgba(255,255,255,.04)" stroke="rgba(242,211,123,.16)" />
+    <path d="M256 630 H824" stroke="rgba(242,211,123,.12)" stroke-width="1"/>
+    <path d="M256 710 H824" stroke="rgba(242,211,123,.12)" stroke-width="1"/>
+    <path d="M256 790 H824" stroke="rgba(242,211,123,.12)" stroke-width="1"/>
+
+    <text x="258" y="602" class="t3 caps" font-size="18">Venue</text>
+    <text x="260" y="664" class="t1" font-size="34" font-weight="600">Acqua Bistecca, DC</text>
+
+    <text x="258" y="748" class="t3 caps" font-size="18">Address</text>
+    <text x="260" y="808" class="t1" font-size="30" font-weight="500">10 Ridge Square NW, Washington, DC 20016</text>
+  </g>
+
+  <g>
+    <path d="M540 942 c74 0 130 58 130 130" fill="none" stroke="rgba(242,211,123,.38)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M540 942 c-74 0 -130 58 -130 130" fill="none" stroke="rgba(242,211,123,.38)" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="540" cy="1004" r="52" fill="none" stroke="url(#gold)" stroke-width="2.5"/>
+    <circle cx="540" cy="1004" r="18" fill="rgba(242,211,123,.14)" stroke="rgba(242,211,123,.36)" stroke-width="2"/>
+    <text x="540" y="1013" text-anchor="middle" class="t1" font-size="28" font-weight="600">J</text>
+  </g>
+
+  <text x="540" y="1218" text-anchor="middle" class="t2 caps" font-size="21">Please keep this evening a surprise</text>
+
+  <g opacity=".9">
+    <circle cx="150" cy="190" r="4" fill="#f2d37b"/>
+    <circle cx="932" cy="178" r="3.5" fill="#d6b15a"/>
+    <circle cx="890" cy="1060" r="4" fill="#f2d37b"/>
+    <circle cx="214" cy="1076" r="3.5" fill="#d6b15a"/>
+  </g>
+</svg>`;
+
+      const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+
+      card.href = url;
+      downloadLink.href = url;
+
+      card.addEventListener("click", () => {
+        card.style.transform = "scale(0.985)";
+        setTimeout(() => (card.style.transform = ""), 160);
+      });
+
+      const sparkCount = 12;
+      const bg = document.querySelector(".bg");
+
+      for (let i = 0; i < sparkCount; i++) {
+        const s = document.createElement("span");
+        const size = 2 + Math.random() * 4;
+        s.style.position = "absolute";
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.borderRadius = "999px";
+        s.style.left = Math.random() * 100 + "%";
+        s.style.top = Math.random() * 100 + "%";
+        s.style.background = "rgba(242,211,123," + (0.22 + Math.random() * 0.55) + ")";
+        s.style.boxShadow = "0 0 16px rgba(242,211,123,.22)";
+        s.style.pointerEvents = "none";
+        s.style.animation = `sparkFloat ${8 + Math.random() * 10}s ease-in-out ${Math.random() * 5}s infinite alternate`;
+        bg.appendChild(s);
+      }
+
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes sparkFloat {
+          0% { transform: translate3d(0,0,0) scale(1); opacity: .25; }
+          100% { transform: translate3d(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px, 0) scale(1.35); opacity: .95; }
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>
