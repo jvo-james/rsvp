@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050505" />
+  <title>Joe | Surprise Birthday Dinner</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Your CSS / JS -->
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="scripts.js"></script>
+</head>
+
+<body class="page">
+  <!-- Ambient background layers -->
+  <div class="bg-layer bg-layer--grid" aria-hidden="true"></div>
+  <div class="bg-layer bg-layer--glow" aria-hidden="true"></div>
+  <div class="bg-layer bg-layer--noise" aria-hidden="true"></div>
+
+  <!-- Decorative moving SVGs -->
+  <svg class="ornament ornament--top-left" viewBox="0 0 240 240" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#8f6b1f" />
+        <stop offset="50%" stop-color="#f2d37b" />
+        <stop offset="100%" stop-color="#b88a2d" />
+      </linearGradient>
+    </defs>
+    <path d="M35 120c20-45 66-78 120-78 15 0 29 2 42 7" fill="none" stroke="url(#goldLine)" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 10">
+      <animate attributeName="stroke-dashoffset" values="0;180" dur="14s" repeatCount="indefinite" />
+    </path>
+    <circle cx="48" cy="96" r="4" fill="#f2d37b">
+      <animate attributeName="cy" values="96;78;96" dur="6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="172" cy="50" r="3.5" fill="#d6b15a">
+      <animateTransform attributeName="transform" type="rotate" values="0 172 50;360 172 50" dur="16s" repeatCount="indefinite" />
+    </circle>
+  </svg>
+
+  <svg class="ornament ornament--bottom-right" viewBox="0 0 240 240" aria-hidden="true">
+    <path d="M196 120c-20 45-66 78-120 78-15 0-29-2-42-7" fill="none" stroke="#d6b15a" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 10">
+      <animate attributeName="stroke-dashoffset" values="0;-180" dur="14s" repeatCount="indefinite" />
+    </path>
+    <path d="M150 68l6 18 18 6-18 6-6 18-6-18-18-6 18-6z" fill="none" stroke="#f2d37b" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" values="0 150 68;360 150 68" dur="18s" repeatCount="indefinite" />
+    </path>
+    <circle cx="72" cy="165" r="4" fill="#f2d37b">
+      <animateMotion dur="10s" repeatCount="indefinite" path="M0 0 C 25 -25, 50 -25, 75 0 C 100 25, 125 25, 150 0" />
+    </circle>
+  </svg>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero" id="top">
+      <div class="hero__veil" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="eyebrow reveal">
+          <i class="fa-solid fa-crown"></i>
+          A private celebration
+        </p>
+
+        <div class="hero__media reveal">
+  <svg class="hero__glyph hero__glyph--one" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M100 20 C140 20 180 60 180 100 C180 140 140 180 100 180 C60 180 20 140 20 100 C20 60 60 20 100 20 Z" fill="none" stroke="rgba(242,211,123,.28)" stroke-width="2" stroke-dasharray="6 10">
+      <animateTransform attributeName="transform" type="rotate" values="0 100 100;360 100 100" dur="20s" repeatCount="indefinite" />
+    </path>
+  </svg>
+
+  <svg class="hero__glyph hero__glyph--two" viewBox="0 0 220 220" aria-hidden="true">
+    <path d="M110 24 L124 86 L186 110 L124 134 L110 196 L96 134 L34 110 L96 86 Z" fill="none" stroke="rgba(214,177,90,.35)" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" values="0 110 110;-360 110 110" dur="18s" repeatCount="indefinite" />
+    </path>
+  </svg>
+
+  <div class="hero__frame hero__frame--large">
+    <img
+      src="image1.jpg"
+      alt="Joe portrait 1"
+      class="hero__img hero__img--large"
+    />
+  </div>
+
+  <div class="hero__frame hero__frame--small">
+    <img
+      src="image2.jpg"
+      alt="Joe portrait 2"
+      class="hero__img hero__img--small"
+    />
+  </div>
+
+  <div class="hero__shine" aria-hidden="true"></div>
+
+  <svg class="hero__rays" viewBox="0 0 600 600" aria-hidden="true">
+    <circle cx="300" cy="300" r="210" fill="none" stroke="rgba(242,211,123,.15)" stroke-width="1.5" stroke-dasharray="14 12">
+      <animate attributeName="stroke-dashoffset" values="0;260" dur="22s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="300" cy="300" r="165" fill="none" stroke="rgba(214,177,90,.2)" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 300 300;360 300 300" dur="26s" repeatCount="indefinite" />
+    </circle>
+  </svg>
+</div>
+
+        <div class="hero__copy reveal">
+  <p class="hero__line hero__line--soft">A private celebration</p>
+  <h1 class="hero__title">Joe is being celebrated.</h1>
+  <p class="hero__line hero__line--accent">Something beautiful is being prepared.</p>
+
+  <div class="hero__actions">
+    <a href="#details" class="btn btn--primary btn--reveal">
+      <span class="btn__text">Unveil the celebration</span>
+      <span class="btn__orb" aria-hidden="true"></span>
+      <i class="fa-solid fa-wand-sparkles"></i>
+    </a>
+    <a href="#rsvp" class="btn btn--ghost">
+      RSVP <i class="fa-regular fa-circle-check"></i>
+    </a>
+  </div>
+</div>
+      </div>
+
+      <a href="#details" class="scroll-prompt" aria-label="Scroll to details">
+        <span></span>
+        <i class="fa-solid fa-angle-down"></i>
+      </a>
+    </section>
+
+    <!-- Details -->
+    <section class="details section" id="details">
+      <div class="section__heading reveal">
+        <p class="section__eyebrow">
+          <i class="fa-solid fa-star"></i> The evening
+        </p>
+        <h2 class="section__title">A few details</h2>
+      </div>
+
+      <div class="details__grid">
+        <article class="detail-card reveal">
+          <i class="fa-regular fa-calendar-days detail-card__icon"></i>
+          <p class="detail-card__label">Saturday</p>
+          <p class="detail-card__value">30 May</p>
+        </article>
+
+        <article class="detail-card reveal">
+          <i class="fa-regular fa-clock detail-card__icon"></i>
+          <p class="detail-card__label">Time</p>
+          <p class="detail-card__value">7:00 PM</p>
+        </article>
+
+        <article class="detail-card reveal">
+          <i class="fa-solid fa-location-dot detail-card__icon"></i>
+          <p class="detail-card__label">Venue</p>
+          <p class="detail-card__value">Acqua Bistecca, DC</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Venue -->
+    <section class="venue section" id="venue">
+      <div class="venue__wrap reveal">
+        <div class="venue__copy">
+          <p class="section__eyebrow">
+            <i class="fa-solid fa-map-pin"></i> Find the place
+          </p>
+          <h2 class="section__title section__title--small">10 Ridge Square NW<br>Washington, DC 20016</h2>
+
+          <div class="venue__actions">
+            <a
+              class="btn btn--primary"
+              href="https://www.google.com/maps/search/?api=1&query=Acqua%20Bistecca%2C%2010%20Ridge%20Square%20NW%2C%20Washington%2C%20DC%2020016"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open in Google Maps <i class="fa-solid fa-location-arrow"></i>
+            </a>
+
+            <a href="#rsvp" class="btn btn--ghost">
+              RSVP Here <i class="fa-regular fa-heart"></i>
+            </a>
+          </div>
+        </div>
+
+      
+      </div>
+    </section>
+
+    <!-- Visual strip with placeholder images -->
+ <section class="gallery section" id="gallery">
+  <div class="section__heading reveal">
+    <p class="section__eyebrow">
+      <i class="fa-solid fa-star"></i> The mood
+    </p>
+    <h2 class="section__title">A glimpse of the evening</h2>
+  </div>
+
+  <div class="gallery__grid gallery__grid--styled">
+    <figure class="gallery__item gallery__item--tall reveal">
+      <img
+        src="image3.JPG"
+        alt="Elegant restaurant atmosphere"
+      />
+      <span class="gallery__frame"></span>
+      <svg class="gallery__spark gallery__spark--one" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M50 10 L58 38 L90 50 L58 62 L50 90 L42 62 L10 50 L42 38 Z" fill="none" stroke="rgba(242,211,123,.35)" stroke-width="1.8">
+          <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="16s" repeatCount="indefinite" />
+        </path>
+      </svg>
+    </figure>
+
+    <figure class="gallery__item reveal">
+      <img
+        src="image4.JPG"
+        alt="Fine dining table setting"
+      />
+      <span class="gallery__frame"></span>
+    </figure>
+
+    <figure class="gallery__item reveal">
+      <img
+        src="image5.JPG"
+        alt="Dinner plate placeholder"
+      />
+      <span class="gallery__frame"></span>
+      <svg class="gallery__spark gallery__spark--two" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="25" fill="none" stroke="rgba(214,177,90,.32)" stroke-width="1.5" stroke-dasharray="5 8">
+          <animateTransform attributeName="transform" type="rotate" values="0 50 50;360 50 50" dur="18s" repeatCount="indefinite" />
+        </circle>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+    <!-- RSVP -->
+    <section class="rsvp section" id="rsvp">
+      <div class="section__heading reveal">
+        <p class="section__eyebrow">
+          <i class="fa-regular fa-envelope-open"></i> RSVP
+        </p>
+        <h2 class="section__title">Save your place</h2>
+      </div>
+
+      <form class="rsvp__form reveal" action="#" method="post">
+        <div class="field">
+          <label for="guestName">Name</label>
+          <div class="field__wrap">
+            <i class="fa-regular fa-user field__icon"></i>
+            <input
+              type="text"
+              id="guestName"
+              name="guestName"
+              placeholder="Your name"
+              autocomplete="name"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field field--check">
+          <label class="check-card" for="attendance">
+            <input type="checkbox" id="attendance" name="attendance" required />
+            <span class="check-card__box" aria-hidden="true">
+              <i class="fa-solid fa-check"></i>
+            </span>
+            <span class="check-card__text">
+              I’ll be there
+            </span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">
+          Confirm <i class="fa-regular fa-circle-check"></i>
+        </button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__text">For Joe.</p>
+    </footer>
+  </main>
+</body>
+</html>
