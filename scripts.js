@@ -298,6 +298,65 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+    // -----------------------------
+  // Countdown
+  // -----------------------------
+  const daysEl = document.querySelector("#days");
+  const hoursEl = document.querySelector("#hours");
+  const minutesEl = document.querySelector("#minutes");
+  const secondsEl = document.querySelector("#seconds");
+  const countdownBar = document.querySelector("#countdownBar");
+  const countdownNote = document.querySelector("#countdownNote");
+
+  const targetDate = new Date("2026-05-30T19:00:00");
+
+  function pad(num) {
+    return String(num).padStart(2, "0");
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      if (daysEl) daysEl.textContent = "00";
+      if (hoursEl) hoursEl.textContent = "00";
+      if (minutesEl) minutesEl.textContent = "00";
+      if (secondsEl) secondsEl.textContent = "00";
+      if (countdownBar) countdownBar.style.width = "100%";
+      if (countdownNote) countdownNote.textContent = "It is time for the celebration.";
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    if (daysEl) daysEl.textContent = pad(days);
+    if (hoursEl) hoursEl.textContent = pad(hours);
+    if (minutesEl) minutesEl.textContent = pad(minutes);
+    if (secondsEl) secondsEl.textContent = pad(seconds);
+
+    const totalWindow = 1000 * 60 * 60 * 24 * 30;
+    const progress = Math.max(0, Math.min(1, 1 - diff / totalWindow));
+    if (countdownBar) countdownBar.style.width = `${Math.round(progress * 100)}%`;
+
+    if (countdownNote) {
+      if (days === 0) {
+        countdownNote.textContent = "Tonight is almost here.";
+      } else if (days === 1) {
+        countdownNote.textContent = "Just one day left until the dinner.";
+      } else {
+        countdownNote.textContent = "A private evening is taking shape.";
+      }
+    }
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  
   // -----------------------------
   // Small polish for any reveal/open buttons
   // -----------------------------
