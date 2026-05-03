@@ -1242,3 +1242,251 @@ input {
 .gallery__item--tall {
   min-height: 360px;
 }
+
+
+.countdown{
+  position:relative;
+  padding: clamp(2rem, 4vw, 4rem) 0;
+}
+
+.countdown__shell{
+  position:relative;
+  margin-top: 1.25rem;
+  padding: clamp(1rem, 2.2vw, 1.5rem);
+}
+
+.countdown__card{
+  position:relative;
+  overflow:hidden;
+  border-radius: 30px;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid rgba(242,211,123,.14);
+  background:
+    radial-gradient(circle at 50% 15%, rgba(242,211,123,.14), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.025)),
+    rgba(10,10,10,.8);
+  box-shadow: 0 24px 80px rgba(0,0,0,.5);
+  backdrop-filter: blur(14px);
+}
+
+.countdown__halo{
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(242,211,123,.14), transparent 35%),
+    radial-gradient(circle at 25% 30%, rgba(214,177,90,.10), transparent 20%),
+    radial-gradient(circle at 75% 70%, rgba(242,211,123,.08), transparent 24%);
+  filter: blur(18px);
+  pointer-events:none;
+  animation: countdownGlow 10s ease-in-out infinite alternate;
+}
+
+.countdown__top{
+  position:relative;
+  z-index:1;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.countdown__kicker{
+  margin:0 0 .45rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  color:rgba(242,211,123,.9);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  font-size:.68rem;
+  flex-wrap:wrap;
+}
+
+.countdown__title{
+  margin:0;
+  font-family:"Cinzel",serif;
+  font-size: clamp(1.35rem, 3vw, 2.2rem);
+  line-height:1.05;
+  text-wrap:balance;
+}
+
+.countdown__seal{
+  width:62px;
+  height:62px;
+  flex:0 0 auto;
+  opacity:.9;
+}
+
+.countdown__seal svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.countdown__grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .8rem;
+  margin-top: 1.1rem;
+}
+
+.count-tile{
+  position:relative;
+  overflow:hidden;
+  border-radius: 22px;
+  padding: 1rem .7rem .9rem;
+  text-align:center;
+  border: 1px solid rgba(242,211,123,.12);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  min-width:0;
+  transform: translateZ(0);
+  animation: tileFloat 5.5s ease-in-out infinite;
+}
+
+.count-tile:nth-child(2){ animation-delay: .25s; }
+.count-tile:nth-child(3){ animation-delay: .5s; }
+.count-tile:nth-child(4){ animation-delay: .75s; }
+
+.count-tile::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.1) 50%, transparent 60%);
+  transform: translateX(-140%);
+  animation: tileSheen 5.8s ease-in-out infinite;
+  pointer-events:none;
+}
+
+.count-tile__value{
+  display:block;
+  font-family:"Cinzel",serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height:1;
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(242,211,123,.12);
+}
+
+.count-tile__label{
+  display:block;
+  margin-top:.45rem;
+  color: rgba(247,242,232,.7);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:.68rem;
+  white-space:nowrap;
+}
+
+.countdown__bar{
+  position:relative;
+  z-index:1;
+  margin-top: 1rem;
+  height: 10px;
+  border-radius:999px;
+  overflow:hidden;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(242,211,123,.12);
+}
+
+.countdown__bar-fill{
+  display:block;
+  width:0%;
+  height:100%;
+  border-radius:inherit;
+  background: linear-gradient(90deg, #fff3c7 0%, #d9b458 45%, #9f7b2b 100%);
+  box-shadow: 0 0 20px rgba(242,211,123,.28);
+  transition: width .7s ease;
+}
+
+.countdown__note{
+  position:relative;
+  z-index:1;
+  margin:.9rem 0 0;
+  color: rgba(247,242,232,.72);
+  font-size:.92rem;
+  line-height:1.6;
+  text-align:center;
+}
+
+.countdown__ornament{
+  position:absolute;
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events:none;
+  opacity:.9;
+  filter: drop-shadow(0 0 16px rgba(242,211,123,.08));
+}
+
+.countdown__ornament--left{ left: -18px; }
+.countdown__ornament--right{ right: -18px; }
+
+@keyframes countdownGlow{
+  0%{ transform: translate3d(0,0,0) scale(1); }
+  100%{ transform: translate3d(12px,-8px,0) scale(1.03); }
+}
+
+@keyframes tileFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-4px); }
+}
+
+@keyframes tileSheen{
+  0%{ transform: translateX(-140%); }
+  45%{ transform: translateX(140%); }
+  100%{ transform: translateX(140%); }
+}
+
+@media (max-width: 820px){
+  .countdown__ornament{
+    width: 120px;
+    height: 120px;
+    opacity:.55;
+  }
+
+  .countdown__grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px){
+  .countdown{
+    padding: 1.5rem 0;
+  }
+
+  .countdown__shell{
+    margin-top: .9rem;
+    padding: .7rem;
+  }
+
+  .countdown__card{
+    border-radius: 24px;
+    padding: 1rem;
+  }
+
+  .countdown__grid{
+    gap: .65rem;
+  }
+
+  .count-tile{
+    padding: .9rem .55rem .8rem;
+    border-radius: 18px;
+  }
+
+  .count-tile__value{
+    font-size: 1.7rem;
+  }
+
+  .count-tile__label{
+    font-size: .62rem;
+    letter-spacing: .14em;
+  }
+
+  .countdown__note{
+    font-size: .88rem;
+  }
+}
