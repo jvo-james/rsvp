@@ -991,29 +991,29 @@
     </section>
   </main>
 
-  <script>
-    (() => {
-      const params = new URLSearchParams(window.location.search);
-      const name = (params.get("name") || "Guest").trim() || "Guest";
+<script>
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    const name = (params.get("name") || "Guest").trim() || "Guest";
+    const safeName = name.replace(/[<>&"']/g, "");
 
-      const safeName = name.replace(/[<>&"']/g, "");
-      const guestName = document.getElementById("guestName");
-      const nameBanner = document.getElementById("nameBanner");
-      const leadText = document.getElementById("leadText");
-      const cardGuestLine = document.getElementById("cardGuestLine");
-      const inviteCard = document.getElementById("inviteCard");
-      const downloadInvite = document.getElementById("downloadInvite");
+    const guestName = document.getElementById("guestName");
+    const nameBanner = document.getElementById("nameBanner");
+    const leadText = document.getElementById("leadText");
+    const cardGuestLine = document.getElementById("cardGuestLine");
+    const inviteCard = document.getElementById("inviteCard");
+    const downloadInvite = document.getElementById("downloadInvite");
 
-      if (guestName) guestName.textContent = safeName;
-      if (nameBanner) nameBanner.hidden = false;
-      if (leadText) {
-        leadText.textContent = `${safeName}, your RSVP has been saved for Joe’s surprise birthday dinner.`;
-      }
-      if (cardGuestLine) {
-        cardGuestLine.textContent = `For ${safeName}`;
-      }
+    if (guestName) guestName.textContent = safeName;
+    if (nameBanner) nameBanner.hidden = false;
+    if (leadText) {
+      leadText.textContent = `${safeName}, your RSVP has been saved for Joe’s surprise birthday dinner.`;
+    }
+    if (cardGuestLine) {
+      cardGuestLine.textContent = `For ${safeName}`;
+    }
 
-      const buildInviteSvg = (guest) => `
+    const buildInviteSvg = (guest) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -1039,10 +1039,10 @@
     </filter>
 
     <style>
-      .t1{font-family: 'Cinzel', serif; fill: #f7f2e8}
-      .t2{font-family: 'Inter', sans-serif; fill: rgba(247,242,232,.76)}
-      .t3{font-family: 'Inter', sans-serif; fill: #f2d37b; letter-spacing: 3px}
-      .caps{letter-spacing: 6px; text-transform: uppercase}
+      .t1{font-family:'Cinzel',serif;fill:#f7f2e8}
+      .t2{font-family:'Inter',sans-serif;fill:rgba(247,242,232,.76)}
+      .t3{font-family:'Inter',sans-serif;fill:#f2d37b;letter-spacing:3px}
+      .caps{letter-spacing:6px;text-transform:uppercase}
     </style>
   </defs>
 
@@ -1100,18 +1100,50 @@
   <text x="540" y="1218" text-anchor="middle" class="t2 caps" font-size="21">Please keep this evening a surprise</text>
 </svg>`.trim();
 
-      const svgBlob = new Blob([buildInviteSvg(safeName)], { type: "image/svg+xml;charset=utf-8" });
-      const url = URL.createObjectURL(svgBlob);
+    const svgBlob = new Blob([buildInviteSvg(safeName)], {
+      type: "image/svg+xml;charset=utf-8"
+    });
+
+    const url = URL.createObjectURL(svgBlob);
+    const fileName = "Joe-Surprise-Invite.svg";
+
+    function openAndDownload() {
+      const preview = window.open(url, "_blank", "noopener,noreferrer");
+
+      const tempLink = document.createElement("a");
+      tempLink.href = url;
+      tempLink.download = fileName;
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      tempLink.remove();
+
+      if (!preview) {
+        console.log("Popup blocked, download still triggered.");
+      }
+    }
+
+    if (inviteCard) {
       inviteCard.href = url;
-      downloadInvite.href = url;
-
-      inviteCard.addEventListener("click", () => {
-        inviteCard.style.transform = "scale(0.985)";
-        setTimeout(() => (inviteCard.style.transform = ""), 140);
+      inviteCard.setAttribute("download", fileName);
+      inviteCard.addEventListener("click", (e) => {
+        e.preventDefault();
+        openAndDownload();
       });
+    }
 
-      window.addEventListener("beforeunload", () => URL.revokeObjectURL(url));
-    })();
-  </script>
+    if (downloadInvite) {
+      downloadInvite.href = url;
+      downloadInvite.setAttribute("download", fileName);
+      downloadInvite.addEventListener("click", (e) => {
+        e.preventDefault();
+        openAndDownload();
+      });
+    }
+
+    window.addEventListener("beforeunload", () => {
+      URL.revokeObjectURL(url);
+    });
+  })();
+</script>
 </body>
 </html>
