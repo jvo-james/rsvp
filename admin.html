@@ -392,6 +392,249 @@
         transition-duration:.001ms !important;
       }
     }
+    .guest-row{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(242,211,123,.1);
+  overflow:visible;
+}
+
+.guest-row__left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  flex:1;
+}
+
+.guest-row__name{
+  font-weight:700;
+  color:var(--text);
+  overflow-wrap:anywhere;
+  line-height:1.35;
+}
+
+.guest-row__menu-wrap{
+  position:relative;
+  flex:0 0 auto;
+}
+
+.guest-row__more{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  border:1px solid rgba(242,211,123,.14);
+  background:rgba(255,255,255,.03);
+  color:rgba(247,242,232,.9);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transition:transform .16s ease, background .16s ease, border-color .16s ease;
+  flex:0 0 auto;
+}
+
+.guest-row__more:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,.06);
+  border-color:rgba(242,211,123,.24);
+}
+
+.guest-menu{
+  position:absolute;
+  right:0;
+  top:calc(100% + 8px);
+  min-width:132px;
+  padding:8px;
+  border-radius:16px;
+  background:rgba(10,10,10,.96);
+  border:1px solid rgba(242,211,123,.16);
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  backdrop-filter:blur(14px);
+  display:none;
+  z-index:30;
+}
+
+.guest-menu.is-open{
+  display:block;
+}
+
+.guest-menu--up{
+  top:auto;
+  bottom:calc(100% + 8px);
+}
+
+.guest-menu__item{
+  width:100%;
+  border:none;
+  background:transparent;
+  color:rgba(247,242,232,.95);
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+  padding:10px 10px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:.9rem;
+  text-align:left;
+}
+
+.guest-menu__item:hover{
+  background:rgba(255,255,255,.05);
+}
+
+.guest-menu__item i{
+  color:rgba(242,211,123,.9);
+}
+
+.delete-modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  place-items:center;
+  padding:18px;
+  z-index:9999;
+}
+
+.delete-modal.is-open{
+  display:grid;
+}
+
+.delete-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.56);
+  backdrop-filter:blur(8px);
+}
+
+.delete-modal__card{
+  position:relative;
+  z-index:1;
+  width:min(100%, 420px);
+  border-radius:28px;
+  padding:22px 18px 18px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(242,211,123,.14), transparent 26%),
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)),
+    rgba(10,10,10,.95);
+  border:1px solid rgba(242,211,123,.16);
+  box-shadow:0 28px 90px rgba(0,0,0,.6);
+  text-align:center;
+  transform:translateY(8px) scale(.98);
+  animation: modalIn .18s ease forwards;
+}
+
+.delete-modal__icon{
+  width:56px;
+  height:56px;
+  margin:0 auto 12px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg, #fff3c7, #d9b458 55%, #9f7b2b);
+  color:#130d02;
+  box-shadow:0 16px 32px rgba(242,211,123,.14);
+  font-size:1.2rem;
+}
+
+.delete-modal__eyebrow{
+  margin:0 0 8px;
+  color:rgba(242,211,123,.9);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-size:.68rem;
+}
+
+.delete-modal__title{
+  margin:0;
+  font-family:"Cinzel",serif;
+  font-size:clamp(1.3rem, 3.6vw, 1.8rem);
+  line-height:1.1;
+  text-wrap:balance;
+}
+
+.delete-modal__text{
+  margin:12px 0 0;
+  color:var(--muted);
+  line-height:1.6;
+  font-size:.95rem;
+  text-wrap:pretty;
+}
+
+.delete-modal__actions{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+
+.delete-modal__btn{
+  flex:1 1 0;
+  min-height:42px;
+  border-radius:999px;
+  border:1px solid transparent;
+  cursor:pointer;
+  font-weight:800;
+  font-size:.9rem;
+}
+
+.delete-modal__btn--ghost{
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  border-color:rgba(242,211,123,.14);
+}
+
+.delete-modal__btn--danger{
+  color:#120d02;
+  background:linear-gradient(135deg, #fff3c7, #d9b458 55%, #9f7b2b);
+}
+
+@keyframes modalIn{
+  from{transform:translateY(12px) scale(.96); opacity:0}
+  to{transform:translateY(0) scale(1); opacity:1}
+}
+
+@media (max-width: 520px){
+  .guest-row{
+    padding:12px;
+  }
+
+  .guest-row__more{
+    width:32px;
+    height:32px;
+  }
+
+  .guest-menu{
+    min-width:124px;
+  }
+
+  .delete-modal__card{
+    border-radius:24px;
+    padding:20px 14px 14px;
+  }
+
+  .delete-modal__actions{
+    gap:8px;
+  }
+
+  .delete-modal__btn{
+    min-height:40px;
+    font-size:.88rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .delete-modal__card{
+    animation:none;
+    transform:none;
+  }
+}
   </style>
 </head>
 <body>
@@ -433,19 +676,35 @@
     </section>
 
     <div class="footer">Joe’s surprise dinner</div>
+  <div class="delete-modal" id="deleteModal" aria-hidden="true">
+  <div class="delete-modal__backdrop" data-close-modal></div>
+
+  <div class="delete-modal__card" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="delete-modal__icon" aria-hidden="true">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+
+    <p class="delete-modal__eyebrow">Remove guest</p>
+    <h3 class="delete-modal__title" id="deleteModalTitle">Are you sure?</h3>
+    <p class="delete-modal__text" id="deleteModalText">
+      Are you sure you want to remove this guest from the guests list?
+    </p>
+
+    <div class="delete-modal__actions">
+      <button class="delete-modal__btn delete-modal__btn--ghost" type="button" id="cancelDeleteBtn">
+        No
+      </button>
+      <button class="delete-modal__btn delete-modal__btn--danger" type="button" id="confirmDeleteBtn">
+        Yes, remove
+      </button>
+    </div>
+  </div>
+</div>
   </main>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getFirestore,
-      collection,
-      onSnapshot,
-      query,
-      orderBy
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = {
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const appConfig = {
       apiKey: "AIzaSyCBoxz_Lgl7UXoMZZM2noBgR8NTu90LA0g",
       authDomain: "joe-birthday-dinner-2cf3f.firebaseapp.com",
       projectId: "joe-birthday-dinner-2cf3f",
@@ -454,61 +713,70 @@
       appId: "1:1040931514557:web:0d9e67a9be1c2da66bafd4"
     };
 
-    const app = initializeApp(firebaseConfig);
+    const {
+      initializeApp
+    } = window.firebaseApp;
+    const {
+      getFirestore,
+      collection,
+      onSnapshot,
+      query,
+      orderBy,
+      deleteDoc,
+      doc
+    } = window.firebaseFirestore;
+
+    const app = initializeApp(appConfig);
     const db = getFirestore(app);
 
     const guestList = document.getElementById("guestList");
     const guestCount = document.getElementById("guestCount");
     const emptyState = document.getElementById("emptyState");
-    const copyBtn = document.getElementById("copyBtn");
-    const exportBtn = document.getElementById("exportBtn");
 
-    let currentNames = [];
+    const deleteModal = document.getElementById("deleteModal");
+    const deleteModalText = document.getElementById("deleteModalText");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
 
-    function toast(message) {
-      const existing = document.querySelector(".toast");
-      if (existing) existing.remove();
+    let currentItems = [];
+    let openMenu = null;
+    let openMenuButton = null;
+    let pendingDelete = null;
 
-      const el = document.createElement("div");
-      el.className = "toast";
-      el.setAttribute("role", "status");
-      el.setAttribute("aria-live", "polite");
-      el.innerHTML = `
-        <span class="toast__icon"><i class="fa-solid fa-check"></i></span>
-        <span class="toast__text"></span>
-      `;
-      el.querySelector(".toast__text").textContent = message;
-      document.body.appendChild(el);
-
-      requestAnimationFrame(() => el.classList.add("show"));
-
-      setTimeout(() => {
-        el.classList.remove("show");
-        setTimeout(() => el.remove(), 220);
-      }, 1800);
-    }
-
-    function copyToClipboard(text) {
-      return navigator.clipboard?.writeText(text).catch(() => {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.setAttribute("readonly", "");
-        ta.style.position = "fixed";
-        ta.style.left = "-9999px";
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        ta.remove();
+    function closeMenus() {
+      document.querySelectorAll(".guest-menu.is-open").forEach((menu) => {
+        menu.classList.remove("is-open", "guest-menu--up");
       });
+
+      document.querySelectorAll(".guest-row__more[aria-expanded='true']").forEach((btn) => {
+        btn.setAttribute("aria-expanded", "false");
+      });
+
+      openMenu = null;
+      openMenuButton = null;
     }
 
-    function render(names) {
-      currentNames = names.slice();
+    function openDeleteModal(item) {
+      pendingDelete = item;
+      deleteModalText.textContent = `Are you sure you want to remove ${item.name} from the guests list?`;
+      deleteModal.classList.add("is-open");
+      deleteModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
 
-      guestCount.textContent = String(names.length);
+    function closeDeleteModal() {
+      pendingDelete = null;
+      deleteModal.classList.remove("is-open");
+      deleteModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function render(items) {
+      currentItems = items.slice();
+      guestCount.textContent = String(items.length);
       guestList.innerHTML = "";
 
-      if (!names.length) {
+      if (!items.length) {
         const li = document.createElement("li");
         li.className = "empty";
         li.id = "emptyState";
@@ -517,79 +785,183 @@
         return;
       }
 
-      names.forEach((name, index) => {
+      items.forEach((item, index) => {
         const li = document.createElement("li");
-        li.className = "row";
+        li.className = "guest-row";
+        li.dataset.id = item.id;
+        li.dataset.name = item.name;
+
         li.innerHTML = `
-          <span class="num">${index + 1}</span>
-          <span class="name"></span>
+          <div class="guest-row__left">
+            <span class="num">${index + 1}</span>
+            <span class="guest-row__name"></span>
+          </div>
+
+          <div class="guest-row__menu-wrap">
+            <button class="guest-row__more" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open menu for ${item.name}">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div class="guest-menu" role="menu" aria-label="Actions for ${item.name}">
+              <button class="guest-menu__item" type="button" data-action="remove">
+                <i class="fa-solid fa-trash"></i>
+                Remove
+              </button>
+            </div>
+          </div>
         `;
-        li.querySelector(".name").textContent = name;
+
+        li.querySelector(".guest-row__name").textContent = item.name;
         guestList.appendChild(li);
       });
     }
 
-    function exportExcel(names) {
-      if (!window.XLSX) {
-        toast("Excel library did not load.");
+    function positionMenu(menu, button) {
+      const row = button.closest(".guest-row");
+      if (!row) return;
+
+      requestAnimationFrame(() => {
+        const rowRect = row.getBoundingClientRect();
+        const menuRect = menu.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rowRect.bottom;
+        const shouldOpenUp = spaceBelow < menuRect.height + 20;
+
+        menu.classList.toggle("guest-menu--up", shouldOpenUp);
+      });
+    }
+
+    guestList.addEventListener("click", (e) => {
+      const moreBtn = e.target.closest(".guest-row__more");
+      const removeBtn = e.target.closest(".guest-menu__item[data-action='remove']");
+      const row = e.target.closest(".guest-row");
+
+      if (moreBtn && row) {
+        e.stopPropagation();
+        const menu = row.querySelector(".guest-menu");
+
+        if (openMenu && openMenu !== menu) {
+          closeMenus();
+        }
+
+        const isOpen = menu.classList.contains("is-open");
+        closeMenus();
+
+        if (!isOpen) {
+          menu.classList.add("is-open");
+          moreBtn.setAttribute("aria-expanded", "true");
+          openMenu = menu;
+          openMenuButton = moreBtn;
+          positionMenu(menu, moreBtn);
+        }
+
         return;
       }
 
-      const rows = names.map((name, index) => ({
-        "#": index + 1,
-        Name: name
-      }));
+      if (removeBtn && row) {
+        e.stopPropagation();
+        const item = {
+          id: row.dataset.id,
+          name: row.dataset.name
+        };
 
-      const ws = XLSX.utils.json_to_sheet(rows);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Attending");
-      XLSX.writeFile(wb, "joe-attending-list.xlsx");
-    }
+        closeMenus();
+        openDeleteModal(item);
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      const clickedInsideMenu = e.target.closest(".guest-menu");
+      const clickedMore = e.target.closest(".guest-row__more");
+
+      if (!clickedInsideMenu && !clickedMore) {
+        closeMenus();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeMenus();
+        closeDeleteModal();
+      }
+    });
+
+    deleteModal.addEventListener("click", (e) => {
+      if (e.target.matches("[data-close-modal]")) {
+        closeDeleteModal();
+      }
+    });
+
+    cancelDeleteBtn.addEventListener("click", closeDeleteModal);
+
+    confirmDeleteBtn.addEventListener("click", async () => {
+      if (!pendingDelete) return;
+
+      try {
+        await deleteDoc(doc(db, "rsvps", pendingDelete.id));
+        closeDeleteModal();
+      } catch (error) {
+        console.error("Delete failed:", error);
+        alert("Could not remove that guest.");
+      }
+    });
 
     onSnapshot(
       query(collection(db, "rsvps"), orderBy("createdAt", "desc")),
       (snapshot) => {
-        const names = [];
+        const items = [];
 
         snapshot.forEach((docSnap) => {
           const data = docSnap.data() || {};
           if (data.attending) {
             const name = String(data.name || "Unnamed guest").trim();
-            names.push(name || "Unnamed guest");
+            items.push({
+              id: docSnap.id,
+              name: name || "Unnamed guest"
+            });
           }
         });
 
-        render(names);
+        render(items);
+
+        if (emptyState) {
+          emptyState.style.display = items.length ? "none" : "block";
+        }
       },
       (error) => {
         console.error("Failed to load RSVPs:", error);
-        toast("Could not load the guest list.");
       }
     );
 
-    copyBtn.addEventListener("click", async () => {
-      const text = currentNames.length
-        ? currentNames.map((name, index) => `${index + 1}. ${name}`).join("\\n")
-        : "No attending guests yet.";
-
-      try {
-        await copyToClipboard(text);
-        toast("Copied to clipboard.");
-      } catch (error) {
-        console.error("Copy failed:", error);
-        toast("Copy failed.");
+    window.addEventListener("resize", () => {
+      if (openMenu && openMenuButton) {
+        positionMenu(openMenu, openMenuButton);
       }
     });
+  });
+</script>
 
-    exportBtn.addEventListener("click", () => {
-      try {
-        exportExcel(currentNames);
-        toast("Excel file downloaded.");
-      } catch (error) {
-        console.error("Export failed:", error);
-        toast("Export failed.");
-      }
-    });
-  </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    onSnapshot,
+    query,
+    orderBy,
+    deleteDoc,
+    doc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  window.firebaseApp = { initializeApp };
+  window.firebaseFirestore = {
+    getFirestore,
+    collection,
+    onSnapshot,
+    query,
+    orderBy,
+    deleteDoc,
+    doc
+  };
+</script>
 </body>
 </html>
